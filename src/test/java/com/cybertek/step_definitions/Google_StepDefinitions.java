@@ -8,12 +8,15 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
-public class Google_StepDefinitions {
+import java.util.List;
 
+public class Google_StepDefinitions {
+    GoogleSearchPage googleSearchPage = new GoogleSearchPage();
     @Given("User is on Google home page")
     public void user_is_on_google_home_page() {
         Driver.getDriver().get("https://www.google.com");
     }
+
     @When("User searches for apple")
     public void user_searches_for_apple() {
         GoogleSearchPage googleSearchPage = new GoogleSearchPage();
@@ -26,5 +29,17 @@ public class Google_StepDefinitions {
         String expectedTitle = "apple";
 
         Assert.assertTrue(actualTitle.contains(expectedTitle));
+    }
+    @Then("User should be able to search for following:")
+    public void userShouldBeAbleToSearchForFollowing(List<String> items) {
+        System.out.println("items = " + items);
+        //loop and search for each item on google
+        for (String item : items) {
+            googleSearchPage.searchBar.sendKeys(item + Keys.ENTER);
+            System.out.println("item = " + Driver.getDriver().getTitle());
+            Driver.getDriver().navigate().back();
+
+        }
+
     }
 }
