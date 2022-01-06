@@ -42,4 +42,18 @@ public class Google_StepDefinitions {
         }
 
     }
+
+    @When("User searches for {string} capital")
+    public void userSearchesForCapital(String countryName) {
+        System.out.println("Searching for capital of " + countryName);
+        googleSearchPage.searchBar.sendKeys("What is capital of " + countryName +Keys.ENTER);
+    }
+
+    @Then("User should see {string} in the result")
+    public void userShouldSeeInTheResult(String capitalCity) {
+        System.out.println("Expected capital is " + capitalCity);
+
+
+    }
+
 }
